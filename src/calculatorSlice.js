@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Parser } from 'expr-eval';
 
 const initialState = {
   display: "0",
@@ -26,7 +27,8 @@ const calculatorSlice = createSlice({
     },
     evaluate: (state) => {
       try {
-        let result = eval(state.display);
+        const parser = new Parser();
+        const result = parser.evaluate(state.display); // an toàn hơn eval
         state.display = result.toString();
       } catch {
         state.display = "Error";
